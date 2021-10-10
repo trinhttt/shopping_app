@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app/screens/register.dart';
+import 'package:shopping_app/screens/login.dart';
 
-class LoginScreen extends StatelessWidget {
+class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
             ),
             Container(
                 margin: EdgeInsets.only(left: 5.0, right: 5.0),
-                height: 260,
+                height: 340,
                 width: width,
                 // color: Colors.red,
                 decoration: BoxDecoration(
@@ -52,6 +52,30 @@ class LoginScreen extends StatelessWidget {
                         height: 60,
                         // color: Colors.red,
                         // margin: ,
+                        child: TextField(
+                          decoration: InputDecoration(
+                            filled: true,
+                            // border: InputBorder.none,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: BorderSide(
+                                width: 0,
+                                style: BorderStyle.none,
+                              ),
+                            ),
+                            fillColor: Color(0xFFE8E8E8),
+                            // border: OutlineInputBorder(),
+                            prefixIcon: Icon(Icons.person),
+                            hintText: 'Name',
+                            // disabledBorder: UnderlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                      Spacer(),
+                      Container(
+                        height: 60,
+                        // color: Colors.yellow,
+                        margin: EdgeInsets.only(left: 20.0, right: 20.0),
                         child: TextField(
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
@@ -118,7 +142,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                             onPressed: () {},
                             child: Text(
-                              'Login',
+                              'Register',
                               style: TextStyle(
                                 fontSize: 25,
                               ),
@@ -132,18 +156,18 @@ class LoginScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Don\'t have an account?'),
+                  Text('Already have an account?'),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => RegisterScreen()),
+                        PageRouteBuilder(
+                          pageBuilder: (context, _, __) => LoginScreen(),
+                          transitionDuration: Duration.zero,
+                        ),
                       );
-                      transitionDuration:
-                      Duration.zero;
                     },
-                    child: const Text('Create account!'),
+                    child: const Text('Sign in!!'),
                   ),
                 ],
               ),
