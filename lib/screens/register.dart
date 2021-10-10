@@ -77,6 +77,7 @@ class RegisterScreen extends StatelessWidget {
                         // color: Colors.yellow,
                         margin: EdgeInsets.only(left: 20.0, right: 20.0),
                         child: TextField(
+                          // Set up keyboard email
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             filled: true,
@@ -102,9 +103,11 @@ class RegisterScreen extends StatelessWidget {
                         // color: Colors.yellow,
                         margin: EdgeInsets.only(left: 20.0, right: 20.0),
                         child: TextField(
+                          // Set input type password
                           obscureText: true,
                           enableSuggestions: false,
                           autocorrect: false,
+                          // End Set input type password
                           decoration: InputDecoration(
                             filled: true,
                             // border: InputBorder.none,
