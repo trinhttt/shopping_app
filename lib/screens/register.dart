@@ -1,10 +1,28 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shopping_app/screens/login.dart';
+import 'package:shopping_app/shared/converts/hash.convert.dart';
+import 'package:shopping_app/shared/local_storage.dart';
 
 class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    LocalStorage local = LocalStorage();
+    final name = TextEditingController();
+    final email = TextEditingController();
+    final password = TextEditingController();
+
+    saveLocalData(name, email, password) async {
+      var test = {
+        'name': name,
+        'email': email,
+        'password': generateMd5(password),
+      };
+      var data = json.encode(test);
+      await local.writeLocal(data);
+    }
 
     return Scaffold(
       // fix When the keyboard appears, the Flutter widgets resize.
@@ -53,6 +71,7 @@ class RegisterScreen extends StatelessWidget {
                         // color: Colors.red,
                         // margin: ,
                         child: TextField(
+                          controller: name,
                           decoration: InputDecoration(
                             filled: true,
                             // border: InputBorder.none,
@@ -77,6 +96,7 @@ class RegisterScreen extends StatelessWidget {
                         // color: Colors.yellow,
                         margin: EdgeInsets.only(left: 20.0, right: 20.0),
                         child: TextField(
+                          controller: email,
                           // Set up keyboard email
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
@@ -103,6 +123,7 @@ class RegisterScreen extends StatelessWidget {
                         // color: Colors.yellow,
                         margin: EdgeInsets.only(left: 20.0, right: 20.0),
                         child: TextField(
+                          controller: password,
                           // Set input type password
                           obscureText: true,
                           enableSuggestions: false,
@@ -143,7 +164,12 @@ class RegisterScreen extends StatelessWidget {
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   Colors.black),
                             ),
-                            onPressed: () {},
+                            onPressed: () async {
+                              await saveLocalData(
+                                  name.text, email.text, password.text);
+                              var contents = await local.readLocal();
+                              print('read local: $contents');
+                            },
                             child: Text(
                               'Register',
                               style: TextStyle(
