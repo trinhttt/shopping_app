@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app/home/product_item_view.dart';
-import 'package:shopping_app/models/product_model.dart';
+import 'package:shopping_app/home/widgets/product_item_view.dart';
+import 'cart_screen.dart';
+import 'models/product_model.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -16,10 +17,12 @@ class _HomeScreenState extends State<HomeScreen> {
     productList = List.generate(
         10,
         (index) => ProductModel(
+            index,
             "https://cdn.vuahanghieu.com/unsafe/0x500/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/product/2021/07/giay-the-thao-puma-rs-fast-running-system-white-black-men-casual-shoes-380562-03-mau-trang-den-610200e316e76-29072021081411.jpg",
             "Product $index",
             "Brand $index",
-            index * 100));
+            index * 100,
+            0));
   }
 
   @override
@@ -51,7 +54,11 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             IconButton(
                 onPressed: () {
-                  print('Tapped cart');
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return CartScreen();
+                      });
                 },
                 icon: Icon(
                   Icons.add_shopping_cart_outlined,
