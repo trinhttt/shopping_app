@@ -20,8 +20,54 @@ class RegisterScreen extends StatelessWidget {
         'email': email,
         'password': generateMd5(password),
       };
+      // Encode object to string to save
       var data = json.encode(test);
+      // Save local string
       await local.writeLocal(data);
+    }
+
+    // Show alert
+    showAlertDialog(BuildContext context) {
+      // set up the buttons
+      Widget cancelButton = TextButton(
+        child: Text("Cancel"),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      );
+      Widget continueButton = TextButton(
+        child: Text("Go to Login"),
+        onPressed: () {
+          Navigator.pushReplacement(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, _, __) => LoginScreen(),
+              transitionDuration: Duration.zero,
+            ),
+          );
+        },
+      );
+
+      // set up the AlertDialog
+      AlertDialog alert = AlertDialog(
+        // title: Text("AlertDialog"),
+        content: Text(
+          "Create account success!",
+          style: TextStyle(color: Colors.green),
+        ),
+        actions: [
+          cancelButton,
+          continueButton,
+        ],
+      );
+
+      // show the dialog
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
     }
 
     return Scaffold(
@@ -165,10 +211,15 @@ class RegisterScreen extends StatelessWidget {
                                   Colors.black),
                             ),
                             onPressed: () async {
-                              await saveLocalData(
-                                  name.text, email.text, password.text);
-                              var contents = await local.readLocal();
-                              print('read local: $contents');
+                              if (name.text.length > 0 &&
+                                  email.text.length > 0 &&
+                                  password.text.length > 0) {
+                                await saveLocalData(
+                                    name.text, email.text, password.text);
+                                var contents = await local.readLocal();
+                                print('read local: $contents');
+                                showAlertDialog(context);
+                              }
                             },
                             child: Text(
                               'Register',

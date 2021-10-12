@@ -1,4 +1,3 @@
-
 import 'enums/local_storage_type.enum.dart';
 import 'local_storage_file.dart';
 
@@ -9,8 +8,7 @@ class LocalStorage {
   LocalStorage([type]) {
     if (type == null) {
       this._type = LocalStorageType.file;
-    }
-    else {
+    } else {
       this._type = type;
     }
   }
@@ -19,14 +17,13 @@ class LocalStorage {
     String? result;
     switch (this._type) {
       case LocalStorageType.file:
-
         result = await saveFile.readContents();
         break;
 
       case LocalStorageType.sqlite:
         break;
 
-      default :
+      default:
         break;
     }
 
@@ -42,7 +39,7 @@ class LocalStorage {
       case LocalStorageType.sqlite:
         break;
 
-      default :
+      default:
         break;
     }
   }
