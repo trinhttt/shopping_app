@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final productModel = Provider.of<ProductModel>(context, listen: false);
+    // final productModel = Provider.of<ProductModel>(context, listen: false);
 
     return Scaffold(
         drawer: Drawer(
@@ -60,7 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   showModalBottomSheet(
                       context: context,
                       builder: (context) {
-                        return Provider.value(value: productModel, child: CartScreen());//;CartScreen()
+                        // return Provider.value(value: productModel, child: CartScreen());//;CartScreen()
+                        return CartScreen();
                       });
                 },
                 icon: Icon(
