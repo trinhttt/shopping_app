@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/home/models/product_model.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_app/home/providers/cart_provider.dart';
 
 class ProductItemView extends StatelessWidget {
   final ProductModel productModel;
@@ -30,7 +32,7 @@ class ProductItemView extends StatelessWidget {
           children: [
             Container(
               margin: EdgeInsets.all(5),
-              height: 170,
+              height: 150,
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
@@ -53,8 +55,11 @@ class ProductItemView extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   Spacer(),
-                  Icon(
-                    Icons.add_shopping_cart,
+                  IconButton(
+                    onPressed: () {
+                      context.read<CartProvider>().addItemToCart(productModel);
+                    },
+                    icon: Icon(Icons.add_shopping_cart),
                   )
                 ],
               ),

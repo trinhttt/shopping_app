@@ -7,6 +7,9 @@ import 'package:provider/provider.dart';
 class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    final cartProvider = Provider.of<CartProvider>(context);
+
     return Stack(
       children: [
         SizedBox(height: 15),
@@ -25,7 +28,8 @@ class CartScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   child: Column(
                     children:
-                        context.watch<CartProvider>().productList.map((item) => CartItemView(item)).toList(),
+                        // context.watch<CartProvider>().productList.map((item) => CartItemView(item)).toList(),
+                    cartProvider.productList.map((item) => CartItemView(item)).toList(),
                   )),
             ],
           ),

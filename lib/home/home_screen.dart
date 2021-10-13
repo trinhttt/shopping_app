@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app/home/widgets/product_item_view.dart';
 import 'cart_screen.dart';
 import 'models/product_model.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -27,6 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final productModel = Provider.of<ProductModel>(context, listen: false);
+
     return Scaffold(
         drawer: Drawer(
           child: ListView(
@@ -57,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   showModalBottomSheet(
                       context: context,
                       builder: (context) {
-                        return CartScreen();
+                        return Provider.value(value: productModel, child: CartScreen());//;CartScreen()
                       });
                 },
                 icon: Icon(
